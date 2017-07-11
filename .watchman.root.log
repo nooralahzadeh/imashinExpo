@@ -1,0 +1,12 @@
+1492945882: tid=2556339136 Using watcher mechanism fsevents
+1492945882: tid=2556339136 file limit is 256 kern.maxfilesperproc=10240
+1492945882: tid=2556339136 raised file limit to 10240
+1492945882: tid=2556339136 Using socket from launchd as listening socket
+1492945882: tid=2556339136 failed to parse json from /Users/farhadzn/Project/iMashin/.watchman.root.state: unable to open /Users/farhadzn/Project/iMashin/.watchman.root.state: No such file or directory
+1492945888: tid=84606976 path /Users/farhadzn/Project/iMashin is on filesystem type hfs
+1492946185: tid=85143552 /Users/farhadzn/Project/iMashin: kFSEventStreamEventFlagUserDropped: scheduling a tree recrawl
+1493053687: tid=2556339136 Using watcher mechanism fsevents
+1493053687: tid=2556339136 file limit is 256 kern.maxfilesperproc=10240
+1493053687: tid=2556339136 raised file limit to 10240
+1493053687: tid=2556339136 Using socket from launchd as listening socket
+1493053687: tid=2556339136 path /Users/farhadzn/Project/iMashin is on filesystem type hfs

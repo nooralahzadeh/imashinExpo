@@ -1,0 +1,21 @@
+{
+  "name": "iMashin",
+  "description": "sell your car fast!",
+  "slug": "iMashin",
+  "sdkVersion": "14.0.0",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "primaryColor": "#cccccc",
+  "privacy":"unlisted",
+  "icon": "./src/images/master_logo.png",
+  "loading": {
+    "icon": "./src/images/master_logo.png",
+    "backgroundColor": "#cccccc",
+    "hideExponentText": false
+  },
+  "packagerOpts": {
+    "assetExts": [
+      "ttf"
+    ]
+  }
+}
