@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Text,View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import  Slider  from 'react-native-slider';
+
 import { brandSet, palqueSet, filterFetchWebSerivice} from '../actions';
 import ModalPicker from 'react-native-modal-picker';
 import { Card, CardSection, Input, Button, Spinner } from './common';
@@ -66,14 +66,12 @@ onPlaqueSet(text) {
   onFilterPress() {
     const { selectedbrands, selectedOrderOption } = this.state;
 
-
     this.props.filterFetchWebSerivice({ selectedbrands,selectedOrderOption });
   }
 
   _renderBrandSelection(){
     Actions.brandsSelection();
   }
-
 
   _renderModelSelection({selectedBrands}){
 

@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import {
    View,
-   Text,
+   TextInput,
    Image,
    TouchableOpacity,
    PixelRatio,
    ScrollView,
    Dimensions,
-   Platform
+   Platform,
+   Slider
     } from 'react-native';
 
 import {BasicPicker,CascadePicker} from 'react-native-picker-xg';
-import Slider from 'react-native-slider';
+
 import { connect } from 'react-redux';
 import { productUpdate, getModelsList, getYearList} from '../actions';
 import { CardSection, Input } from './common';
@@ -20,7 +21,7 @@ import Thumb from "./common/Thumb";
 import product from "./Styles/product";
 import {Actions} from "react-native-router-flux";
 import { Ionicons } from '@expo/vector-icons';
-import { Container, Content, Form, Item, Label, Header, Button, Left, Icon, Picker} from 'native-base';
+import { Container, Content,Text, Form, Item, Label, Header, Button, Left, Icon, Picker , Body, Title, Right, Tabs, Tab,TabHeading} from 'native-base';
 import { SegmentedControls } from 'react-native-radio-buttons';
 //import MapView from 'react-native-maps';
 import Expo from 'expo';
@@ -54,8 +55,15 @@ class ProductForm extends Component {
      selectedGearTypeIndex:1,
      selectedFuleTypeIndex:0,
      selectedKilometer:0,
-     selectedYear:'0'
-     //showBrandPicker:false,
+     selectedKilometer:0,
+     selectedYear:'0',
+     enteredMotorPower:0,
+     enteredMotorSize: 0,
+     enteredFullDescription:'',
+     selectedInsuracne:'',
+     selectedPrice:0,
+     color:'red',
+     icon_fontsize:10     //showBrandPicker:false,
   };
 
   componentDidMount() {
@@ -167,7 +175,6 @@ class ProductForm extends Component {
       };
 
   _onBodyColorSelection (value: string) {
-
             this.setState({selectedBodyColor:value});
 
           };
@@ -492,21 +499,36 @@ class ProductForm extends Component {
         };
 
 
+
+    _renderKM(){
+        const placeholder_text=`${this.state.selectedKilometer} km`;
+        return(
+        <Item fixedLabel>
+            <Label>حجم موتور</Label>
+            <Input placeholder={placeholder_text} onChangeText={value => this.setState({ enteredMotorPower:value })}/>
+        </Item>
+      );
+    };
+
   render() {
 
     return (
    <Container>
-     <Header>
+     <Header hasTabs>
                     <Left>
                         <Button transparent>
                             <Icon name='arrow-back' onPress={Actions.home} />
                         </Button>
                     </Left>
 
-      </Header>
-
+                    <Body>
+                                <Title>درج آگهی</Title>
+                    </Body>
+                    <Right />
+    </Header>
+    <Tabs initialPage={0}>
+              <Tab heading="اطلاعات اصلی">
       <Content>
-
         <View style={{justifyContent: 'center', alignItems: 'center', flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.5)'}}>
         <ScrollView style={{height: 220}}
                     directionalLockEnabled={true}
@@ -532,24 +554,44 @@ class ProductForm extends Component {
       </ScrollView>
     </View>
     <View>
+                  <Item>
+                  <Label style={{height: 40,
+                    paddingTop:10, margin: 10
+                  }}>تومان</Label>
+                  <Input style={{
+                    color: '#000',
+                    fontSize: 18,
+                    lineHeight: 23,
+
+                  }} placeholder='قیمت به تومان' onChangeText={value => this.setState({ selectedPrice:value})} />
+                <Icon name='md-star'  style={{color: this.state.color, fontSize:this.state.icon_fontsize}}/>
+                </Item>
+                  <View style={{borderRadius: 2,  borderWidth: 0.5, borderColor: '#d6d7da'}}>
+                  <TextInput  style={{paddingLeft:10, paddingRight: 10, height: 100, borderRadius: 4,  borderWidth: 0.5, borderColor: '#d6d7da'}}
+                    placeholder='توضیحات' multiline={true} numberOfLines = {10}
+                       onChangeText={value => this.setState({ enteredFullDescription:value})} />
+                    </View>
                               <Item>
-                                {/* <Label>نوع پلاک</Label> */}
                                 {this._renderPlaqueTypePicker()}
+                                <Icon name='md-star'  style={{color: this.state.color,fontSize: this.state.icon_fontsize}}/>
                               </Item>
                               <Item>
-                                {/* <Label>برند</Label> */}
+
                                 {this._renderBrandPicker()}
+                                <Icon name='md-star'  style={{color: this.state.color,fontSize: this.state.icon_fontsize}}/>
+
                               </Item>
                            <Item>
-                               {/* <Label>مدل</Label> */}
+
                               {this._renderModelPicker()}
                            </Item>
                            <Item>
+
                               {this._renderYearPicker()}
                            </Item>
 
                            <Expo.MapView
-                                 style={{width:width, height:220}}
+                                 style={{width:width, height:180, alignSelf: 'stretch', margin: 10}}
                                  region={this.state.mapRegion}
                                  showsUserLocation={true}
                                  followUserLocation={true}
@@ -570,52 +612,87 @@ class ProductForm extends Component {
                                    </View> */}
                                  </Expo.MapView.Marker>
                                </Expo.MapView>
+                          </View>
 
-                            <Item>
+                          <Button block info style={{margin:5}}>
+                            <Text>ارسال آگهی</Text>
+                          </Button>
+                           <View style={{ flex: 1 }}>
+                                <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
+                                  <View style={styles.modalContent}>
+                                    <Button light block onPress={this._onPressCammeraButton.bind(this)}>
+                                                  <Text>گرفتن عکس</Text>
+                                    </Button>
+                                    <Button block light onPress={this._onPressLibraryButton.bind(this)}>
+                                                  <Text>انتخاب از گالری</Text>
+                                    </Button>
+                                    <Button block light onPress={this._hideModal}>
+                                                  <Text>انصراف</Text>
+                                    </Button>
+                                  </View>
+                                </Modal>
+                              </View>
+                    </Content>
+                  </Tab>
 
-                                  {this._renderBodyColorPicker()}
+                  <Tab heading="اطلاعات تکمیلی">
+                  <Content>
+                      <Item>
+                            {this._renderBodyColorPicker()}
                             </Item>
                             <Item>
-
-                                  {this._renderInteriorColorPicker()}
+                                {this._renderInteriorColorPicker()}
                             </Item>
                             <Item>
-
-                                  {this._renderBodyStatePicker()}
+                                {this._renderBodyStatePicker()}
                             </Item>
                             {this._renderFuleType()}
                             {this._renderGearType()}
                             <Item>
-                                  {this._renderAutoClassPicker()}
+                                {this._renderAutoClassPicker()}
                             </Item>
 
+                            <View style={styles.labelSlidercontainerStyle}>
+                              <Text style={styles.labelStyle}>بیمه</Text>
+                              <Text style={styles.inputSliderStyle}> {this.state.selectedInsurance} ماه</Text>
+                            </View>
+                            <View style={styles.KMcontainer}>
+                              <Slider
+                                 style={{ width:width -20 }}
+                                 step={1}
+                                 minimumValue={0}
+                                 maximumValue={12}
+                                 value={this.state.selectedInsurance}
+                                // onValueChange={val => this.setState({ selectedKilometer: val })}
+                                 onSlidingComplete={ val => this.setState({selectedInsurance:val})}
+                                />
+                            </View>
 
+                          <View style={styles.labelSlidercontainerStyle}>
+                            <Text style={styles.labelStyle}>کارکرد</Text>
+                            <Text style={styles.inputSliderStyle}> {this.state.selectedKilometer} کیلومتر</Text>
+                          </View>
+                          <View style={styles.KMcontainer}>
                             <Slider
-                            value={this.state.selectedKilometer}
-                            trackStyle={styles.track}
-                            thumbStyle={styles.thumb}
-                            minimumTrackTintColor='#2f2f2f'
-                            onValueChange={(value) => this.setState({selectedKilometer:value})} />
-                           <Text>Value: {this.state.selectedKilometer}</Text>
+                               style={{ width:width -20 }}
+                               step={1000}
+                               minimumValue={0}
+                               maximumValue={500000}
+                               value={this.state.selectedKilometer}
+                              // onValueChange={val => this.setState({ selectedKilometer: val })}
+                               onSlidingComplete={ val => this.setState({selectedKilometer:val})}
+                              />
+                          </View>
 
 
-
-    </View>
-    <View style={{ flex: 1 }}>
-      <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
-        <View style={styles.modalContent}>
-          <Button light block onPress={this._onPressCammeraButton.bind(this)}>
-                        <Text>گرفتن عکس</Text>
-          </Button>
-          <Button block light onPress={this._onPressLibraryButton.bind(this)}>
-                        <Text>انتخاب از گالری</Text>
-          </Button>
-          <Button block light onPress={this._hideModal}>
-                        <Text>انصراف</Text>
-          </Button>
-        </View>
-      </Modal>
-    </View>
+                          <Item fixedLabel style={{margin:10}}>
+                              <Label>حجم موتور</Label>
+                              <Input placeholder={`${this.state.enteredMotorSize} سی سی`} onChangeText={value => this.setState({ enteredMotorSize:value })}/>
+                          </Item>
+                          <Item fixedLabel style={{margin:10}}>
+                              <Label>قدرت موتور</Label>
+                              <Input placeholder={`${this.state.enteredMotorPower} اسب بخار`} onChangeText={value => this.setState({ enteredMotorPower:value })}/>
+                          </Item>
 
       {/* <CardSection>
           <Input
@@ -659,7 +736,9 @@ class ProductForm extends Component {
           />
         </CardSection>
       </View> */}
-  </Content>
+    </Content>
+</Tab>
+</Tabs>
 </Container>
     );
   }
@@ -702,7 +781,26 @@ const styles = {
       borderColor: 'rgba(150, 150, 150, 0.6)',
       borderWidth: 14,
       borderRadius: 15,
-    }
+    },
+    inputSliderStyle: {
+      color: '#000',
+      paddingRight: 1,
+      paddingLeft: width-200,
+      fontSize: 18,
+      lineHeight: 23,
+      flex: 2
+    },
+    labelSlidercontainerStyle: {
+      height: 40,
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center'
+    },
+    labelStyle: {
+      fontSize: 18,
+      paddingLeft: 20,
+      flex: 1
+    },
 
 };
 

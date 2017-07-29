@@ -13,19 +13,19 @@ export default class FooterTabs extends Component {
                     <Footer >
                     <FooterTab>
                       <Button active={this.props.home} onPress={Actions.home}>
-                        <Icon name="md-home" size={32} color="#e83737" />
+                        <Icon name="md-home" size={32} color="#808080" />
                       </Button>
                         <Button active={this.props.list} onPress={Actions.productListLarge}>
-                          <Icon name="ios-list" size={32} color="#e83737" />
+                          <Icon name="ios-list" size={32} color="#808080"/>
                         </Button>
                         <Button active={this.props.add} onPress={Actions.productForm}>
-                          <Icon name="ios-add-circle" size={32} color="#e83737" />
+                          <Icon name="ios-add-circle" size={32}color="#808080" />
                         </Button>
                         <Button active={this.props.search} onPress={Actions.filter} >
-                            <Icon  name="ios-search" size={32} color="#e83737" />
+                            <Icon  name="ios-search" size={32} color="#808080" />
                         </Button>
                         <Button active={this.props.profile} onPress={Actions.profile}>
-                            <Icon name="ios-person" size={32} color="#e83737" />
+                            <Icon name="ios-person" size={32} color="#808080"/>
                         </Button>
                     </FooterTab>
                 </Footer>
