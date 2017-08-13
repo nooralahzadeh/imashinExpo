@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import {
   EMAIL_CHANGED,
@@ -7,6 +7,8 @@ import {
   LOGIN_USER_FAIL,
   LOGIN_USER
 } from './types';
+
+import {URL} from '../components/common/Constants';
 
 export const emailChanged = (text) => {
   return {
@@ -23,18 +25,27 @@ export const passwordChanged = (text) => {
 };
 
 export const loginUser = ({ email, password }) => {
+
+  // hasshing the password
+  const loginUrl=`${URL.root}/api/authenticateuser?MobileNo=${email}&Password=${password}`;
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
+    axios.get(searchURL)
+      .then(response =>{
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
-      .catch((error) => {
+
+      }).catch((error) => {
         console.log(error);
-
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(user => loginUserSuccess(dispatch, user))
-          .catch(() => loginUserFail(dispatch));
       });
+    // firebase.auth().signInWithEmailAndPassword(email, password)
+    //   .then(user => loginUserSuccess(dispatch, user))
+    //   .catch((error) => {
+    //     console.log(error);
+    //
+    //     firebase.auth().createUserWithEmailAndPassword(email, password)
+    //       .then(user => loginUserSuccess(dispatch, user))
+    //       .catch(() => loginUserFail(dispatch));
+    //   });
   };
 };
 

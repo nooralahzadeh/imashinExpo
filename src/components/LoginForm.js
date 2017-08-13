@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
-import { Card, CardSection, Input, Button, Spinner } from './common';
+import { Container, Header, Content, Form, Item, Input, Label , Left, Body, Right, Button, Icon, Title} from 'native-base';
+
+import {Spinner } from './common';
 
 class LoginForm extends Component {
   onEmailChange(text) {
@@ -33,34 +35,35 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <Card>
-        <CardSection>
-          <Input
-            label="ایمیل"
-            placeholder="email@gmail.com"
-            onChangeText={this.onEmailChange.bind(this)}
-            value={this.props.email}
-          />
-        </CardSection>
-
-        <CardSection>
-          <Input
-            secureTextEntry
-            label="رمز عبور"
-            placeholder="password"
-            onChangeText={this.onPasswordChange.bind(this)}
-            value={this.props.password}
-          />
-        </CardSection>
-
-        <Text style={styles.errorTextStyle}>
-          {this.props.error}
-        </Text>
-
-        <CardSection>
-          {this.renderButton()}
-        </CardSection>
-      </Card>
+      <Container>
+        <Header>
+          <Left>
+          <Button transparent>
+            <Icon name='arrow-back' />
+          </Button>
+        </Left>
+        <Body>
+          <Title>ورود به پروفایل</Title>
+        </Body>
+        <Right/>
+      </Header>
+        <Content>
+          <Form>
+            <Item floatingLabel>
+              <Label>نام کاربری</Label>
+              <Input  onChangeText={this.onEmailChange.bind(this)} value={this.props.email}/>
+              </Item>
+              <Item floatingLabel last>
+                <Label>رمز عبور</Label>
+                <Input secureTextEntry onChangeText={this.onPasswordChange.bind(this)}
+                value={this.props.password}/>
+              </Item>
+                <Text style={styles.errorTextStyle}>
+                  {this.props.error}
+                </Text>
+            </Form>
+             </Content>
+           </Container>
     );
   }
 }
@@ -75,7 +78,6 @@ const styles = {
 
 const mapStateToProps = ({ auth }) => {
   const { email, password, error, loading } = auth;
-
   return { email, password, error, loading };
 };
 

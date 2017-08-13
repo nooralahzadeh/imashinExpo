@@ -60,12 +60,17 @@ class ProductForm extends Component {
      enteredMotorPower:0,
      enteredMotorSize: 0,
      enteredFullDescription:'',
-     selectedInsuracne:'',
+     selectedInsurance:'',
      selectedPrice:0,
      color:'red',
      icon_fontsize:10     //showBrandPicker:false,
   };
 
+_onPressSendButton(){
+  console.log(' here');
+  console.log(this.state);
+  // all the info will be send to the web server
+}
   componentDidMount() {
     this.watchID = navigator.geolocation.watchPosition((position) => {
       // Create the object to update this.state.mapRegion through the onRegionChange function
@@ -613,10 +618,6 @@ class ProductForm extends Component {
                                  </Expo.MapView.Marker>
                                </Expo.MapView>
                           </View>
-
-                          <Button block info style={{margin:5}}>
-                            <Text>ارسال آگهی</Text>
-                          </Button>
                            <View style={{ flex: 1 }}>
                                 <Modal isVisible={this.state.isModalVisible} style={styles.bottomModal}>
                                   <View style={styles.modalContent}>
@@ -636,7 +637,7 @@ class ProductForm extends Component {
                   </Tab>
 
                   <Tab heading="اطلاعات تکمیلی">
-                  <Content>
+                  <Content padder enableResetScrollToCoords={false}>
                       <Item>
                             {this._renderBodyColorPicker()}
                             </Item>
@@ -658,7 +659,7 @@ class ProductForm extends Component {
                             </View>
                             <View style={styles.KMcontainer}>
                               <Slider
-                                 style={{ width:width -20 }}
+                                 style={{ width:width -35}}
                                  step={1}
                                  minimumValue={0}
                                  maximumValue={12}
@@ -674,7 +675,7 @@ class ProductForm extends Component {
                           </View>
                           <View style={styles.KMcontainer}>
                             <Slider
-                               style={{ width:width -20 }}
+                               style={{ width:width -35 }}
                                step={1000}
                                minimumValue={0}
                                maximumValue={500000}
@@ -693,6 +694,7 @@ class ProductForm extends Component {
                               <Label>قدرت موتور</Label>
                               <Input placeholder={`${this.state.enteredMotorPower} اسب بخار`} onChangeText={value => this.setState({ enteredMotorPower:value })}/>
                           </Item>
+
 
       {/* <CardSection>
           <Input
@@ -739,6 +741,9 @@ class ProductForm extends Component {
     </Content>
 </Tab>
 </Tabs>
+<Button block info style={{margin:5}} onPress={this._onPressSendButton.bind(this)}>
+  <Text>ارسال آگهی</Text>
+</Button>
 </Container>
     );
   }
@@ -785,16 +790,16 @@ const styles = {
     inputSliderStyle: {
       color: '#000',
       paddingRight: 1,
-      paddingLeft: width-200,
+      paddingLeft: width-220,
       fontSize: 18,
       lineHeight: 23,
-      flex: 2
+      flex: 2,
     },
     labelSlidercontainerStyle: {
       height: 40,
       flex: 1,
       flexDirection: 'row',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     labelStyle: {
       fontSize: 18,
