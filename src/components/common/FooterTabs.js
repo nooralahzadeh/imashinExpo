@@ -4,7 +4,7 @@ import { Container, Content, Footer, FooterTab, Button, Text } from 'native-base
 import {Actions} from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { connect } from 'react-redux';
-
+import {redirectFrom} from '../../actions';
 
 class FooterTabs extends Component {
 
@@ -12,6 +12,7 @@ class FooterTabs extends Component {
 
     if (this.props.user== null){
       //Actions.productForm();
+      this.props.redirectFrom('add')
       Actions.login();
     } else {
        Actions.productForm();
@@ -50,4 +51,4 @@ class FooterTabs extends Component {
       return {user}
   };
 
-  export default connect(mapStateToProps)(FooterTabs);
+  export default connect(mapStateToProps,{redirectFrom})(FooterTabs);

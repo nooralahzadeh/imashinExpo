@@ -20,5 +20,6 @@ export default combineReducers({
   filterFields:FilterReducer,
   baseItems: BaseItemsReducer,
   resizedImageUri: ImageResizerReducer,
-  imagesLoadStatus:StartAppReducer
+  imagesLoadStatus:StartAppReducer,
+  
 });

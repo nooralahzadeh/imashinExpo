@@ -3,7 +3,8 @@ import {
   PASSWORD_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  LOGIN_USER
+  LOGIN_USER,
+  FROM_TO
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -11,7 +12,8 @@ const INITIAL_STATE = {
   password: '',
   user: null,
   error: '',
-  loading: false
+  loading: false,
+  from_to:''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,7 +27,10 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER_SUCCESS:
       return { ...state, ...INITIAL_STATE, user: action.payload };
     case LOGIN_USER_FAIL:
-      return { ...state, error: 'Authentication Failed.', password: '', loading: false };
+      return { ...state, error: action.payload, password: '', loading: false };
+    case FROM_TO:
+    console.log(action.payload);
+      return { ...state, ...INITIAL_STATE, from_to : action.payload };
     default:
       return state;
   }

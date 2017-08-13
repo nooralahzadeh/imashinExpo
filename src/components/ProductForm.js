@@ -55,12 +55,11 @@ class ProductForm extends Component {
      selectedGearTypeIndex:1,
      selectedFuleTypeIndex:0,
      selectedKilometer:0,
-     selectedKilometer:0,
-     selectedYear:'0',
+     selectedYear:0,
      enteredMotorPower:0,
      enteredMotorSize: 0,
      enteredFullDescription:'',
-     selectedInsurance:'',
+     selectedInsurance:0,
      selectedPrice:0,
      color:'red',
      icon_fontsize:10     //showBrandPicker:false,
@@ -521,9 +520,12 @@ _onPressSendButton(){
    <Container>
      <Header hasTabs>
                     <Left>
-                        <Button transparent>
-                            <Icon name='arrow-back' onPress={Actions.home} />
-                        </Button>
+
+                      <TouchableOpacity onPress={Actions.home}>
+                          <Icon name='arrow-back'/>
+                          <Text style={{marginLeft: 20}}> </Text>
+                      </TouchableOpacity>
+
                     </Left>
 
                     <Body>

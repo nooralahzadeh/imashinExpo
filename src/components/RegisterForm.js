@@ -9,7 +9,7 @@ import { Container, Header, Content, Form, Item,
 import {Actions} from "react-native-router-flux";
 
 
-class LoginForm extends Component {
+class RegisterFrom extends Component {
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -31,7 +31,7 @@ class LoginForm extends Component {
 
     return (
       <Button block  style={{margin:5}} onPress={this.onButtonPress.bind(this)}>
-        <Text>ورود</Text>
+        <Text>ثبت نام</Text>
       </Button>
     );
   }
@@ -59,14 +59,14 @@ class LoginForm extends Component {
           </Button>
         </Left>
         <Body>
-            {this.renderTitle()}
+              <Title>'عضویت در سایت'</Title>
         </Body>
         <Right/>
       </Header>
         <Content>
           <Form>
             <Item floatingLabel>
-              <Label>ایمیل یا شماره موبایل</Label>
+              <Label>شماره موبایل</Label>
               <Input  onChangeText={this.onEmailChange.bind(this)} value={this.props.email}/>
               </Item>
               <Item floatingLabel last>
@@ -74,17 +74,19 @@ class LoginForm extends Component {
                 <Input secureTextEntry onChangeText={this.onPasswordChange.bind(this)}
                 value={this.props.password}/>
               </Item>
+              <Item floatingLabel last>
+                <Label>نام و نام خانوادگی</Label>
+                <Input value={this.props.password}/>
+              </Item>
+              <Item floatingLabel last>
+                <Label>ایمیل</Label>
+                <Input value={this.props.password}/>
+              </Item>
             </Form>
             {this.renderButton()}
             <Text style={styles.errorTextStyle}>
               {this.props.error}
             </Text>
-            <Button  block transparent info style={{margin:5}}>
-            <Text>کاربر جدید هستید؟ عضویت </Text>
-            </Button>
-            <Button block transparent danger style={{margin:5}}>
-            <Text>رمز عبور را فراموش کرده اید ؟</Text>
-            </Button>
              </Content>
            </Container>
     );
@@ -108,4 +110,4 @@ const mapStateToProps = ({ auth }) => {
 
 export default connect(mapStateToProps, {
   emailChanged, passwordChanged, loginUser
-})(LoginForm);
+})(RegisterFrom);

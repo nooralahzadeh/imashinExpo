@@ -5,6 +5,7 @@ import {Navigator, Text, View} from "react-native";
 import {Scene, Router, Schema, Actions, Animations, TabBar} from "react-native-router-flux";
 //import Intro from "./Views/Intro";
 import Login from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 //import InitForm from "./components/InitForm";
 import Home from "./components/Home";
 import ProductListLarge from "./components/ProductListLarge";
@@ -72,6 +73,7 @@ export default class RootRouter extends Component {
                       <Scene key="brandsSelection" component={BrandsSelectionView} title="BrandsSelection"/>
                       <Scene key="productForm" component={ProductForm} title="ProductForm"/>
                       <Scene key="login" component={Login} title="Login"/>
+                      <Scene key="registerForm" component={RegisterForm} title="RegisterFrom"/>
                   </Scene>
               );
 
