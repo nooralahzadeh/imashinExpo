@@ -520,12 +520,9 @@ _onPressSendButton(){
    <Container>
      <Header hasTabs>
                     <Left>
-
-                      <TouchableOpacity onPress={Actions.home}>
-                          <Icon name='arrow-back'/>
-                          <Text style={{marginLeft: 20}}> </Text>
-                      </TouchableOpacity>
-
+                        <Button transparent>
+                            <Icon name='arrow-back' onPress={Actions.home} />
+                        </Button>
                     </Left>
 
                     <Body>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { emailChanged, passwordChanged, loginUser,redirectFrom } from '../actions';
 import { Container, Header, Content, Form, Item,
         Input, Label , Left, Body, Right,
         Button, Icon, Title,Spinner,
@@ -24,6 +24,15 @@ class LoginForm extends Component {
     this.props.loginUser({ email, password });
   }
 
+  onRegisterButtonPress(){
+    this.props.redirectFrom('add');
+    Actions.registerForm();
+  }
+
+  onPasswordRequestButtonPress(){
+    this.props.redirectFrom('add');
+    Actions.passwordRequest();
+  }
   renderButton() {
     if (this.props.loading) {
       return <Spinner color='green' />;
@@ -46,7 +55,7 @@ class LoginForm extends Component {
     }
   return(
       <Title>{title}</Title>
-  );
+        );
   }
 
   render() {
@@ -79,10 +88,10 @@ class LoginForm extends Component {
             <Text style={styles.errorTextStyle}>
               {this.props.error}
             </Text>
-            <Button  block transparent info style={{margin:5}}>
+            <Button  block transparent info style={{margin:5}} onPress={this.onRegisterButtonPress.bind(this)}>
             <Text>کاربر جدید هستید؟ عضویت </Text>
             </Button>
-            <Button block transparent danger style={{margin:5}}>
+            <Button block transparent danger style={{margin:5}} onPress={this.onPasswordRequestButtonPress.bind(this)}>
             <Text>رمز عبور را فراموش کرده اید ؟</Text>
             </Button>
              </Content>
@@ -107,5 +116,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, {
-  emailChanged, passwordChanged, loginUser
+  emailChanged, passwordChanged, loginUser, redirectFrom
 })(LoginForm);

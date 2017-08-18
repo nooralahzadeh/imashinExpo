@@ -6,6 +6,7 @@ import {Scene, Router, Schema, Actions, Animations, TabBar} from "react-native-r
 //import Intro from "./Views/Intro";
 import Login from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import PasswordRequest from "./components/PasswordRequest";
 //import InitForm from "./components/InitForm";
 import Home from "./components/Home";
 import ProductListLarge from "./components/ProductListLarge";
@@ -74,6 +75,7 @@ export default class RootRouter extends Component {
                       <Scene key="productForm" component={ProductForm} title="ProductForm"/>
                       <Scene key="login" component={Login} title="Login"/>
                       <Scene key="registerForm" component={RegisterForm} title="RegisterFrom"/>
+                      <Scene key="passwordRequest" component={PasswordRequest} title="RegisterFrom"/>
                   </Scene>
               );
 
